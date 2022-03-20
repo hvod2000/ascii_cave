@@ -15,9 +15,20 @@ def layer2str(cave, z, f=str):
     return result
 
 
+def random_player_position(cave):
+    while True:
+        z = randint(1, len(cave.cells) - 1)
+        y = randint(0, len(cave.cells[0]) - 1)
+        x = randint(0, len(cave.cells[0][0]) - 1)
+        player = [x, y, z]
+        under = [x, y, z - 1]
+        if cave[player] is not wall and cave[under] is wall:
+            return player
+
+
 cave = ... #TODO
 
-player = [0, 0, 0]
+player = random_player_position(cave)
 done = False
 while not done:
     print("\n" * 100)
