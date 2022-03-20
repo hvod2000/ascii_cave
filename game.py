@@ -2,6 +2,8 @@ from cave import Cave, LevelsTopology, wall
 from random import randint, choice
 from lib.getchlib import getch
 
+keys = {"up": "cw", "down": "ts", "left": "ra", "right": "nd"}
+
 
 def layer2str(cave, z, f=str):
     layer, floor, items = cave.cells[z], cave.cells[z - 1], cave.items
@@ -75,7 +77,20 @@ while not done:
         print()
         print("CONGRATUATIONS ON YOUR HAED!")
         print("YOU WON!")
-        input()
+        while getch() != "q":
+            continue
         break
     c = getch()
     done = c == "q"
+    target = list(player)
+    if c in keys["up"]:
+        target[1] += 1
+    elif c in keys["right"]:
+        target[0] += 1
+    elif c in keys["down"]:
+        target[1] -= 1
+    elif c in keys["left"]:
+        target[0] -= 1
+    while cave[target] is not wall:
+        player = list(target)
+        target[2] -= 1
