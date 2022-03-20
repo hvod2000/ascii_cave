@@ -35,6 +35,10 @@ class Cave:
             cave.append(layer)
         return Cave(cave, items)
 
+    def __getitem__(self, index):
+        x, y, z = index
+        return self.cells[z][y][x]
+
 
 class LevelsTopology:
     def __init__(self, levels, available_moves):
