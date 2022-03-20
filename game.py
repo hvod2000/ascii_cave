@@ -64,7 +64,7 @@ def add_noise_to_image(layer):
 from pathlib import Path
 from sys import argv
 
-map_path = "map.map" if len(argv) < 2 else argv[1]
+map_path = "default.map" if len(argv) < 2 else argv[1]
 cave = read_graph_from_edges(Path(map_path).read_text())
 
 player = random_player_position(cave)
