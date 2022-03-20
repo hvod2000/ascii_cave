@@ -35,6 +35,22 @@ class Cave:
             cave.append(layer)
         return Cave(cave, items)
 
+    def show(self):
+        print("items:", self.items)
+        for z in range(len(self.cells) - 1, -1, -1):
+            print(f"x> y^ z={z}")
+            for y in range(len(self.cells[0]) - 1, -1, -1):
+                line = []
+                for x in range(len(self.cells[0][0])):
+                    cell = self.cells[z][y][x]
+                    if cell is wall:
+                        line.append("#")
+                    elif cell is None:
+                        line.append(" ")
+                    else:
+                        line.append(str(cell))
+                print("".join(line))
+
     def __getitem__(self, index):
         x, y, z = index
         return self.cells[z][y][x]
