@@ -49,6 +49,13 @@ def read_graph_from_edges(source):
     return Cave.from_levels_topology(lvls)
 
 
+def add_noise_to_image(layer):
+    for y in range(len(layer)):
+        for x in range(len(layer[0])):
+            if randint(1, 4) == 1:
+                layer[y][x] = choice("[]^!><&/-{}?(:#$|~+\%=")
+
+
 from pathlib import Path
 from sys import argv
 
@@ -60,6 +67,7 @@ done = False
 while not done:
     print("\n" * 100)
     layer = layer2str(cave, player[2], lambda i: str(i + 1))
+    add_noise_to_image(layer)
     layer[~player[1]][player[0]] = "@"
     print("  GET TO FINISH ROOM #1!")
     print("\t" + "\n\t".join("".join(row) for row in layer))
