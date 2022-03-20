@@ -26,7 +26,34 @@ def random_player_position(cave):
             return player
 
 
-cave = ... #TODO
+def read_graph_from_binary(source):
+    cave = source.replace(" ", "").replace("\t", "").strip().split("\n")
+    n = int(cave[0])
+    lvl_graph = {i: set() for i in range(n)}
+    for u in range(n):
+        for v, c in enumerate(map(int, cave[u + 1])):
+            if c:
+                lvl_graph[u].add(v)
+    lvls = LevelsTopology.from_available_moves(lvl_graph)
+    return Cave.from_levels_topology(lvls)
+
+
+def read_graph_from_edges(source):
+    cave = source.split("\n")
+    n = int(cave[0])
+    lvl_graph = {i: set() for i in range(n)}
+    for u in range(n):
+        for v in map(int, cave[u + 1].strip().split()):
+            lvl_graph[u].add(v)
+    lvls = LevelsTopology.from_available_moves(lvl_graph)
+    return Cave.from_levels_topology(lvls)
+
+
+from pathlib import Path
+from sys import argv
+
+map_path = "map.map" if len(argv) < 2 else argv[1]
+cave = read_graph_from_edges(Path(map_path).read_text())
 
 player = random_player_position(cave)
 done = False
