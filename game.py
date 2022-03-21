@@ -57,7 +57,7 @@ def read_graph_from_edges(source):
 def add_noise_to_image(layer):
     for y in range(len(layer)):
         for x in range(len(layer[0])):
-            if randint(1, 4) == 1:
+            if randint(1, 40) == 1:
                 layer[y][x] = choice("[]^!><&/-{}?(:#$|~+\%=")
 
 
