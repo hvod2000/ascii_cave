@@ -78,7 +78,7 @@ while not done:
     print("\t" + "\n\t".join("".join(row) for row in layer))
     if isinstance(cave[player], int) and cave.items[cave[player]] == 1:
         print()
-        print("CONGRATUATIONS ON YOUR HAED!")
+        print("CONGRATUATIONS ON YOUR HEAD!")
         print("YOU WON!")
         while getch() != "q":
             continue
