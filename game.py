@@ -67,33 +67,37 @@ from sys import argv
 map_path = "default.map" if len(argv) < 2 else argv[1]
 cave = read_graph_from_edges(Path(map_path).read_text())
 
-player = random_player_position(cave)
 done = False
 while not done:
-    print("\n" * 100)
-    layer = layer2str(cave, player[2])
-    add_noise_to_image(layer)
-    layer[~player[1]][player[0]] = "@"
-    print("  GET TO FINISH ROOM #1!")
-    print("\t" + "\n\t".join("".join(row) for row in layer))
-    if isinstance(cave[player], int) and cave.items[cave[player]] == 1:
-        print()
-        print("CONGRATUATIONS ON YOUR HEAD!")
-        print("YOU WON!")
-        while getch() != "q":
-            continue
-        break
-    c = getch()
-    done = c == "q"
-    target = list(player)
-    if c in keys["up"]:
-        target[1] += 1
-    elif c in keys["right"]:
-        target[0] += 1
-    elif c in keys["down"]:
-        target[1] -= 1
-    elif c in keys["left"]:
-        target[0] -= 1
-    while cave[target] is not wall:
-        player = list(target)
-        target[2] -= 1
+    player = random_player_position(cave)
+    restarting = False
+    while not done and not restarting:
+        print("\n" * 100)
+        layer = layer2str(cave, player[2])
+        add_noise_to_image(layer)
+        layer[~player[1]][player[0]] = "@"
+        print("  GET TO FINISH ROOM #1!")
+        print("\t" + "\n\t".join("".join(row) for row in layer))
+        if isinstance(cave[player], int) and cave.items[cave[player]] == 1:
+            print()
+            print("CONGRATUATIONS ON YOUR HEAD!")
+            print("YOU WON!")
+            while getch() != "q":
+                continue
+            break
+        c = getch()
+        done = c == "q"
+        target = list(player)
+        if c in keys["up"]:
+            target[1] += 1
+        elif c in keys["right"]:
+            target[0] += 1
+        elif c in keys["down"]:
+            target[1] -= 1
+        elif c in keys["left"]:
+            target[0] -= 1
+        elif c == "R":
+            restarting = True
+        while cave[target] is not wall:
+            player = list(target)
+            target[2] -= 1
