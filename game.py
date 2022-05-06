@@ -2,7 +2,7 @@ from cave import Cave, LevelsTopology, wall
 from random import randint, choice
 from lib.getchlib import getch
 
-keys = {"up": "cw", "down": "ts", "left": "ra", "right": "nd"}
+keys = {"up": "cw8", "down": "ts2", "left": "ra4", "right": "nd6"}
 
 
 def layer2str(cave, z, f=str):
